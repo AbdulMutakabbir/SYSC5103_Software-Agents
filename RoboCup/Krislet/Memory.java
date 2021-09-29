@@ -20,14 +20,8 @@ class Memory {
     // ---------------------------------------------------------------------------
     // This function looks for specified object
     public ObjectInfo getObject(String name) {
-        if (m_info == null) {
+        if (m_info == null)
             waitForNewInfo();
-            // System.out.println(m_info.m_message);
-            // for (int c = 0; c < m_info.m_objects.size(); c++) {
-            //     ObjectInfo object = (ObjectInfo) m_info.m_objects.elementAt(c);
-            //     System.out.println(object.m_type);
-            // }
-        }
 
         for (int c = 0; c < m_info.m_objects.size(); c++) {
             ObjectInfo object = (ObjectInfo) m_info.m_objects.elementAt(c);

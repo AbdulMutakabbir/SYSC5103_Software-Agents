@@ -1,9 +1,10 @@
+//
 //	File:			ObjectInfo.java
 //	Author:		Krzysztof Langner
 //	Date:			1997/04/28
 
 //  Modified by:  Paul Marlow, Amir Ghavam, Yoga Selvaraj
-//  Course:       Software A     gents
+//  Course:       Software Agents
 //  Date Due:     November 30, 2000
 
 //  Modified by:  Edgar Acosta

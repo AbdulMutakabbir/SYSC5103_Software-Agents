@@ -1,3 +1,4 @@
+//
 //	File:			Brain.java
 //	Author:		Krzysztof Langner
 //	Date:			1997/04/28
@@ -8,7 +9,6 @@
 //    Date:             March 4, 2008
 
 import java.lang.Math;
-import java.util.Scanner;
 import java.util.regex.*;
 
 class Brain extends Thread implements SensorInput {
@@ -53,28 +53,11 @@ class Brain extends Thread implements SensorInput {
 
 	public void run() {
 		ObjectInfo object;
-		int look = 0;
-		boolean loop = true;
+
 		// first put it somewhere on my side
-		if (Pattern.matches("^before_kick_off.*", m_playMode)) {
-			double x_pos = -36;// -Math.random() * 52.5;
-			double y_pos = -34;// 34 - Math.random() * 68.0;
-			m_krislet.move(-34, 20);
-			System.out.println(x_pos + " " + y_pos);
-		}
-		// Scanner sc = new Scanner(System.in);
-		// while (loop) {
-		// System.out.print("Enter turn- ");
-		// double turn = sc.nextDouble();
-		// m_krislet.turn(turn);
+		if (Pattern.matches("^before_kick_off.*", m_playMode))
+			m_krislet.move(-Math.random() * 52.5, 34 - Math.random() * 68.0);
 
-		// // System.out.print("Enter x- ");
-		// // double x_pos = sc.nextDouble();
-
-		// // System.out.print("Enter y- ");
-		// // double y_pos = sc.nextDouble();
-		// // m_krislet.move(x_pos, y_pos);
-		// }
 		while (!m_timeOver) {
 			object = m_memory.getObject("ball");
 			if (object == null) {
