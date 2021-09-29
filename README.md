@@ -1,4 +1,4 @@
 # SYSC5103_Software-Agents
-SYSC5103 Contains coures assignment and Projects
+SYSC5103 Assinment 1 - Question 1
 
-Project has been initialized.
+Come up with a reactive soccer-playing agent for RoboCup, as per the definition of a reactive agent found in the Wooldridge book. Use Krislet as the starting point for your code. The agent function, i.e. the mapping between the environment state and the action, should be stored in an editable text file separate from the code. One should be able to modify the behavior of your agent by simply editing the text file and without recompiling your code. In a short guide (about half a page and up to a page) tell us how to read, edit and make sense of your agent function definition, give a brief intelligible description of the function, describe how your code executes the agent definition, how to run your code, and what kind of behavior to expect when running your code. 
