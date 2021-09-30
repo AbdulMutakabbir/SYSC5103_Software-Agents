@@ -1,0 +1,17 @@
+{
+    "environments": [
+        "Ball_Unknown",
+        "Ball_Kickable",
+        "Ball_Far"
+    ],
+    "actions": [
+        "Turn",
+        "KickBall",
+        "MoveTowardsBall"
+    ],
+    "mapping": {
+        "Ball_Unknown": "Turn",
+        "Ball_Kickable": "KickBall",
+        "Ball_Far": "MoveTowardsBall"
+    }
+}
