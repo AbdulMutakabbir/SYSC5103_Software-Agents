@@ -46,7 +46,7 @@ class ActionTurn extends Action {
 
     private static String action_name = "Turn";
     private static String action_decription = "Rotate/turn the player by the specifed turn parameter";
-    private static double player_turn_angle = 60.0;
+    private static double player_turn_angle = -40.0;
 
     public ActionTurn() {
         super(action_name, action_decription);
@@ -75,8 +75,15 @@ class ActionDash extends Action {
 
     @Override
     public void do_action(SendCommand krislet, ObjectInfo ball_info, ObjectInfo goal_info, char side) {
-        double dash_power = dash_multiplier * ball_info.m_distance;
+        
+        double dash_power;
 
+        if (ball_info != null){
+            dash_power = dash_multiplier * ball_info.m_distance;
+        }
+        else{
+            dash_power = dash_multiplier * 20.0;
+        }
         krislet.dash(dash_power);
         System.out.println("Performed Action: " + this.name);
     }
@@ -99,7 +106,10 @@ class ActionKick extends Action {
 
     @Override
     public void do_action(SendCommand krislet, ObjectInfo ball_info, ObjectInfo goal_info, char side) {
-        double kick_direction = (ball_info.m_direction + goal_info.m_direction) / 2;
+        double kick_direction = 0;
+        if(ball_info != null && goal_info != null){
+            kick_direction = (ball_info.m_direction + goal_info.m_direction) / 2;
+        }
 
         krislet.kick(kick_power, kick_direction);
         System.out.println("Performed Action: " + this.name);
