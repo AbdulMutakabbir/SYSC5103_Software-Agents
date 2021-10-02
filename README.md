@@ -27,3 +27,28 @@ Points to remember during editing the file:
 
 ### State Machine Diagram
 ![State Machine](https://raw.githubusercontent.com/AbdulMutakabbir/SYSC5103_Software-Agents/assignment_1_q2/assets/Software_Agents%20-%20State_Based_Agents.svg)
+
+> The State Machine has 2 States
+> * Performing One Step Action: This state reminds the agent that the current action it will take is not depend on its past actions.
+> * Performing Multi Step Action: This state reminds the agent that thr current action it will take will be dependent on his past action.
+
+> Agents can performs 3 actions:
+> * Turn: rotates the agent by a certain angel.
+> * Dash: move the agent forwards.
+> * Kick: agent kicks the ball.
+
+> The agent Senses 2 factors from the Envirenment:
+> * Ball: which can be in 3 possible situations
+>   * at a distance of "1" 
+>   * "Far" from the agent
+>   * the ball is "unknown" to the agent
+> * Goal: which can be in 2 possible situations
+>   * agent "Knows" where the goal is
+>   * the goal is "UnKnow to the agent
+> Base on the above 2 factors the envirment can have the following 6 possabilities.
+> * Ball and Goal are Unknown
+> * Ball is Unknown but the goal is Known
+> * Ball is far and the goal is Unknown
+> * Ball is far and the goal is Known 
+> * Ball is at a distance of 1 and the goal is Unknown
+> * Ball is at a distance of 1 and the goal is Known
