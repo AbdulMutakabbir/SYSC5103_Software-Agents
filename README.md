@@ -9,43 +9,43 @@ Come up with a state-based soccer-playing agent. Ideally, the behaviour of the a
 > File Name: StateAgent_Table.csv
 
 The file has the following format
-* Line 1: Start States of the State Machine [Should contain only one State name. Eg: Q1]
+* Line 1: Start State of the State Machine [Should contain only one State name. Eg: Q1]
 * Line 2: Acceptance States of the State Machine in CSV format [The states should be present in Line 3 of the file. Eg: Q2,Q3]
 * Line 3: Set of States in CSV format [Eg: Q1,Q1,Q3,Q4]
 * Line 4: Set of Alphabets in CSV format [Eg: a1,a2,a3]
-* Line 5 - EOF: Containts the transitons result (Ac,Q) in tabulated format. Action and State should be seperated by a ",". Transitions should be seperated by a ";". [Eg: Ac1,Q1; Ac2,Q2; Ac3,Q3; ...]
-> Line 5 to EOF contains a table format for the transitions where each line corresponds to the specific index of the State defined in Line 3 and colums (";" seperated in each line) correstponds to the specific index of alphabet definde in Line 4
+* Line 5 - EOF: Contains the transitions result (Ac,Q) in tabulated format. Action and State should be separated by a ",". Transitions should be separated by a ";". [Eg: Ac1,Q1; Ac2,Q2; Ac3,Q3; ...]
+> Line 5 to EOF contains a table format for the transitions where each line corresponds to the specific index of the State defined in Line 3 and columns (";" separated in each line) corresponds to the specific index of alphabet defined in Line 4
 
 ### How to Edit State Machine Config File:
 Points to remember during editing the file:
-* There should be a minimum of 5 line in the file.
+* There should be a minimum of 5 lines in the file.
 * The 1st line contains only one State.
-* All the State present in Line 1, Line 2 and from Line 5 onwards should be present in Line 3.
-* All the Alphabets present from line 5 onwards should be present in Line 4.
-* Number of Line from Line 5 onwards to the EOF should be equal to the the number of state present in Line 3 and the number of transitions (";" seperated) in each line should be eaqual to the number of alphabets defined in Line 4
+* All the States present in Line 1, Line 2 and from Line 5 onwards should be present in Line 3.
+* All the Alphabets present from Line 5 onwards should be present in Line 4.
+* Number of Lines from Line 5 onwards to the EOF should be equal to the number of state present in Line 3 and the number of transitions (";" separated) in each line should be equal to the number of alphabets defined in Line 4
 > Edit actions and States from Line 5 to EOF based on the above rules.
 
 ### State Machine Diagram:
 ![State Machine](https://raw.githubusercontent.com/AbdulMutakabbir/SYSC5103_Software-Agents/assignment_1_q2/assets/Software_Agents%20-%20State_Based_Agents.svg)
 
 > The State Machine has 2 States
-> * Performing One Step Action: This state reminds the agent that the current action it will take is not depend on its past actions.
-> * Performing Multi Step Action: This state reminds the agent that the current action it will take will be dependent on his past action.
+> * Performing One Step Action: This state reminds the agent that the current action it will take is not dependent on its past actions.
+> * Performing Multi Step Action: This state reminds the agent that the current action it will take will be dependent on its past action.
 
-> Agents can performs 3 actions:
-> * Turn: rotates the agent by a certain angel.
-> * Dash: move the agent forwards.
+> Agents can perform 3 actions:
+> * Turn: rotates the agent by a certain angle.
+> * Dash: moves the agent forward.
 > * Kick: agent kicks the ball.
 
-> The agent Senses 2 factors from the Envirenment:
+> The agent Senses 2 factors from the Environment:
 > * Ball: which can be in 3 possible situations
 >   * at a distance of "1" 
 >   * "Far" from the agent
 >   * the ball is "unknown" to the agent
 > * Goal: which can be in 2 possible situations
 >   * agent "Knows" where the goal is
->   * the goal is "UnKnow to the agent
-> Base on the above 2 factors the envirment can have the following 6 possabilities.
+>   * the goal is "UnKnown" to the agent
+> Based on the above 2 factors the environment can have the following 6 possibilities.
 > * Ball and Goal are Unknown
 > * Ball is Unknown but the goal is Known
 > * Ball is far and the goal is Unknown
@@ -54,24 +54,24 @@ Points to remember during editing the file:
 > * Ball is at a distance of 1 and the goal is Known
 
 ### Code Description:
-* Abstract "Action" class structures the agents actions. These are extended by "ActionTurn", "ActionDash", "ActionKick" classes which implent there own "do_action" method that performs the action by the agent.
+* Abstract "Action" class structures the agents actions. These are extended by "ActionTurn", "ActionDash", "ActionKick" classes which implement their own "do_action" method that performs the action by the agent.
 
-* The "Envirnment" class stores the environment vairables and returns the proper environment when passed the parameters to it.
+* The "Environment" class stores the environment variables and returns the proper environment when passed the parameters to it.
 
-* The "StateMachine" Class does the the following tasks:
-    * read the config file for state machine.
-    * set the current state.
-    * return the current state.
-    * return the the action action to perfom while stting the new state when provided with the current environment.
-    * print the state machine Data.
+* The "StateMachine" Class does the following tasks:
+    * reads the config file for state machine.
+    * sets the current state.
+    * returns the current state.
+    * returns the action action to perfom while setting the new state when provided with the current environment.
+    * prints the state machine Data.
     * stores the data for State Machine.
 
 ### Execution:
-> Exactely same as Krislet execution.
+> Exactly same as Krislet execution.
 
 ### Expected Behaviour:
 * Agent will turn to find the ball
-* Once the agent finds the ball it will move towards it and allign it self with the goal.
+* Once the agent finds the ball it will move towards it and allign itself with the goal.
 * If the agent comes near the ball it will try to kick it.
 
 > Note: Agent may sometimes not align itself properly with the goal in those situations the agents may end up kicking the ball back and forth without it ever reaching the goal.
