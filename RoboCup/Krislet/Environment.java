@@ -7,33 +7,25 @@
 */
 public class Environment {
     // set constants for the environment
-    private static int ENV_TYPE_UNKNOWN = -1;
-    private static int ENV_TYPE_BALL_UNKNOWN = 0;
-    private static int ENV_TYPE_BALL_KICKABLE = 1;
-    private static int ENV_TYPE_BALL_FAR = 2;
-
-    private static String ENV_UNKNOWN = "Unknown";
-    private static String ENV_BALL_UNKNOWN = "Ball_Unknown";
-    private static String ENV_BALL_KICKABLE = "Ball_Kickable";
-    private static String ENV_BALL_FAR = "Ball_Far";
+    private static String ENV_UNKNOWN = "UNKNOWN";
+    private static String ENV_BALL_1_GOAL_KNOWN = "BALL_1_GOAL_KNOWN";
+    private static String ENV_BALL_1_GOAL_UNKNOWN = "BALL_1_GOAL_UNKNOWN";
+    private static String ENV_BALL_FAR_GOAL_KNOWN = "BALL_FAR_GOAL_KNOWN";
+    private static String ENV_BALL_FAR_GOAL_UNKNOWN = "BALL_FAR_GOAL_UNKNOWN";
+    private static String ENV_BALL_UNKNOWN_GOAL_KNOWN = "BALL_UNKNOWN_GOAL_KNOWN";
+    private static String ENV_BALL_UNKNOWN_GOAL_UNKNOWN = "BALL_UNKNOWN_GOAL_UNKNOWN";
 
     // environment variables
-    public int environment_type;
     public String environmen_name;
 
     // constructor with ball information as parameter
-    public Environment(ObjectInfo ball_info) {
-        setEnvironment(ball_info);
+    public Environment(ObjectInfo ball_info, ObjectInfo goal_info) {
+        setEnvironment(ball_info, goal_info);
     }
 
     // constructor with environment as parameter
-    public Environment(String environment_name){
+    public Environment(String environment_name) {
         setEnvironment(environment_name);
-    }
-
-    // getter for environment type
-    public int getEnvironment_type() {
-        return environment_type;
     }
 
     // getter for environment type
@@ -42,55 +34,87 @@ public class Environment {
     }
 
     /*
-    *   Environment state setter methods
-    */
-    private void setEnvironmentBallUnknown() {
-        environment_type = ENV_TYPE_BALL_UNKNOWN;
-        environmen_name = ENV_BALL_UNKNOWN;
+     * Environment state setter methods
+     */
+    private void setEnvironmentBallUnknownGoalUnknown() {
+        environmen_name = ENV_BALL_UNKNOWN_GOAL_UNKNOWN;
     }
 
-    private void setEnvironmentBallFar(){
-        environment_type = ENV_TYPE_BALL_FAR;
-        environmen_name = ENV_BALL_FAR;
+    private void setEnvironmentBallUnknownGoalKnown() {
+        environmen_name = ENV_BALL_UNKNOWN_GOAL_KNOWN;
     }
 
-    private void setEnvironmentBallKickable(){
-        environment_type = ENV_TYPE_BALL_KICKABLE;
-        environmen_name = ENV_BALL_KICKABLE;
+    private void setEnvironmentBallFarGoalUnknown() {
+        environmen_name = ENV_BALL_FAR_GOAL_UNKNOWN;
     }
 
-    private void setEnvironmentUnknown(){
-        environment_type = ENV_TYPE_UNKNOWN;
+    private void setEnvironmentBallFarGoalKnown() {
+        environmen_name = ENV_BALL_FAR_GOAL_KNOWN;
+    }
+
+    private void setEnvironmentBallOneGoalUnknown() {
+        environmen_name = ENV_BALL_1_GOAL_UNKNOWN;
+    }
+
+    private void setEnvironmentBallOneGoalKnown() {
+        environmen_name = ENV_BALL_1_GOAL_KNOWN;
+    }
+
+    private void setEnvironmentUnknown() {
         environmen_name = ENV_UNKNOWN;
     }
 
     public void setEnvironment(String environment_name) {
-        if (environment_name.equals(ENV_BALL_UNKNOWN)) {
-            setEnvironmentBallUnknown();
-        }
-        else{
-            if(environment_name.equals(ENV_BALL_FAR)){
-                setEnvironmentBallFar();
-            }
-            else{
-                if(environment_name.equals(ENV_BALL_KICKABLE)){
-                    setEnvironmentBallKickable();
-                }
-                else{
-                    setEnvironmentUnknown();
+        if (environment_name.equals(ENV_BALL_UNKNOWN_GOAL_UNKNOWN)) {
+            setEnvironmentBallUnknownGoalUnknown();
+        } else {
+            if (environment_name.equals(ENV_BALL_UNKNOWN_GOAL_KNOWN)) {
+                setEnvironmentBallUnknownGoalKnown();
+            } else {
+                if (environment_name.equals(ENV_BALL_FAR_GOAL_UNKNOWN)) {
+                    setEnvironmentBallFarGoalUnknown();
+                } else {
+                    if (environment_name.equals(ENV_BALL_FAR_GOAL_KNOWN)) {
+                        setEnvironmentBallFarGoalKnown();
+                    } else {
+                        if (environment_name.equals(ENV_BALL_1_GOAL_UNKNOWN)) {
+                            setEnvironmentBallOneGoalUnknown();
+                        } else {
+                            if (environment_name.equals(ENV_BALL_1_GOAL_KNOWN)) {
+                                setEnvironmentBallOneGoalKnown();
+                            } else {
+                                setEnvironmentUnknown();
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
-    public void setEnvironment(ObjectInfo ball_info) {
+    public void setEnvironment(ObjectInfo ball_info, ObjectInfo goal_info) {
         if (ball_info == null) {
-            setEnvironmentBallUnknown();
+            if(goal_info == null){
+                setEnvironmentBallUnknownGoalUnknown();
+            }
+            else{
+                setEnvironmentBallUnknownGoalKnown();
+            }
         } else {
             if (ball_info.m_distance > 1) {
-                setEnvironmentBallFar();
+                if(goal_info == null){
+                    setEnvironmentBallFarGoalUnknown();
+                }
+                else{
+                    setEnvironmentBallFarGoalKnown();
+                }
             } else {
-                setEnvironmentBallKickable();
+                if(goal_info == null){
+                    setEnvironmentBallOneGoalUnknown();
+                }
+                else{
+                    setEnvironmentBallOneGoalKnown();
+                }
             }
         }
     }
