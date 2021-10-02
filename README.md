@@ -1,7 +1,7 @@
 # SYSC5103_Software-Agents
 ## SYSC5103 Assinment 1 - Question 2
 
-### Problem Statement
+### Problem Statement:
 Come up with a state-based soccer-playing agent. Ideally, the behaviour of the agent (i.e., the state machine) should again be stored in an editable text file separate from the code, but we're also ok with a hard-coded state machine as long as it is easy to modify it. Again, in a short guide (up to a page or two this time) tell us how to read, edit and make sense of your agent function definition, provide a human-readable finite state machine diagram (ideally in the extended UML FSM format discussed in class) corresponding to your implementation, describe how your code executes the agent definition, how to run your code, and what kind of behavior to expect when running your code. In addition, the guide should PROVE, using runs derived manually from the state machine or from logs obtained from running the agent, that the behaviour is indeed state-based and not reactive.  
 
 ### How to Read State Machine Config File:
@@ -25,12 +25,12 @@ Points to remember during editing the file:
 * Number of Line from Line 5 onwards to the EOF should be equal to the the number of state present in Line 3 and the number of transitions (";" seperated) in each line should be eaqual to the number of alphabets defined in Line 4
 > Edit actions and States from Line 5 to EOF based on the above rules.
 
-### State Machine Diagram
+### State Machine Diagram:
 ![State Machine](https://raw.githubusercontent.com/AbdulMutakabbir/SYSC5103_Software-Agents/assignment_1_q2/assets/Software_Agents%20-%20State_Based_Agents.svg)
 
 > The State Machine has 2 States
 > * Performing One Step Action: This state reminds the agent that the current action it will take is not depend on its past actions.
-> * Performing Multi Step Action: This state reminds the agent that thr current action it will take will be dependent on his past action.
+> * Performing Multi Step Action: This state reminds the agent that the current action it will take will be dependent on his past action.
 
 > Agents can performs 3 actions:
 > * Turn: rotates the agent by a certain angel.
@@ -52,3 +52,29 @@ Points to remember during editing the file:
 > * Ball is far and the goal is Known 
 > * Ball is at a distance of 1 and the goal is Unknown
 > * Ball is at a distance of 1 and the goal is Known
+
+### Code Description:
+* Abstract "Action" class structures the agents actions. These are extended by "ActionTurn", "ActionDash", "ActionKick" classes which implent there own "do_action" method that performs the action by the agent.
+
+* The "Envirnment" class stores the environment vairables and returns the proper environment when passed the parameters to it.
+
+* The "StateMachine" Class does the the following tasks:
+    * read the config file for state machine.
+    * set the current state.
+    * return the current state.
+    * return the the action action to perfom while stting the new state when provided with the current environment.
+    * print the state machine Data.
+    * stores the data for State Machine.
+
+### Execution:
+> Exactely same as Krislet execution.
+
+### Expected Behaviour:
+* Agent will turn to find the ball
+* Once the agent finds the ball it will move towards it and allign it self with the goal.
+* If the agent comes near the ball it will try to kick it.
+
+> Note: Agent may sometimes not align itself properly with the goal in those situations the agents may end up kicking the ball back and forth without it ever reaching the goal.
+
+### Proof of State Based Behaviour
+
