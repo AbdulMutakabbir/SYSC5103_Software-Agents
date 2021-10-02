@@ -32,15 +32,14 @@ class Brain extends Thread implements SensorInput {
 	}
 
 	public void run() {
-		ObjectInfo object;
+		ObjectInfo ball_info, goal_info;
 
-		// setting up the mapping for rective maping for the agent
-		ReactiveMapper mapper = new ReactiveMapper();
+		// init state machine
+		StateMachine sm = new StateMachine();
 		try {
-			mapper.setMappings();
-			mapper.printMappings();
-		} catch (IOException e) {
-			e.printStackTrace();
+			sm.setStateMachineFormCSV("StateAgent_Table.csv");
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 
 		// first put it somewhere on my side
@@ -55,18 +54,31 @@ class Brain extends Thread implements SensorInput {
 		Action action;
 
 		while (!m_timeOver) {
-				
-				object = m_memory.getObject("ball");
 
-				// apping actions based on environment
-				env = new Environment(object);
+			// get ball info
+			ball_info = m_memory.getObject("ball");
 
-				action = mapper.getActionForEnvironment(env.getEnvironmen_name());
+			// get goal info
+			if (m_side == 'l')
+				goal_info = m_memory.getObject("goal r");
+			else
+				goal_info = m_memory.getObject("goal l");
 
-				action.do_action(m_krislet, object, m_memory, m_side);
+			// get current environment
+			env = new Environment(ball_info, goal_info);
 
-				m_memory.waitForNewInfo();
-			
+			// String curr_state = sm.current_state.getStateString();
+
+			// get the new action to be performed
+			action = sm.getNextAction(env);
+
+			// System.out.println("\n\n" + curr_state + "  X  " + env.environmen_name + "  -->  " + action.getName() + "  X  " + sm.current_state.getStateString());
+
+			// perform the action
+			action.do_action(m_krislet, ball_info, goal_info, m_side);
+
+			m_memory.waitForNewInfo();
+
 			// sleep one step to ensure that we will not send
 			// two commands in one cycle.
 			try {
