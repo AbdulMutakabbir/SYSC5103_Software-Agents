@@ -21,12 +21,12 @@ Create a mapping of "Environment , Action" in each Line to add the behaviour to 
 * The agent "Moves towards the ball" when the "Ball is far"
 
 ### Code Description:
-* Abstract "Action" class structures the agents actions. This is extended by "ActionTurn", "ActionMoveTowardsBall", "ActionKick" classes which implement their own "do_action" method which performs the action for the agent.
+* Abstract "Action" class structures the agents actions. It is extended by "ActionTurn", "ActionMoveTowardsBall", "ActionKick" classes which implement their own "do_action" method which performs the action for the agent.
 * The "Environment" class stores the environment variables and returns the proper environment when passed the parameters to it.
 * The "ReactiveMapper" class does the following
     * Reads the mapping from the config file.
     * Prints the mapping.
-    * Returns the action to performend when passed a state to it.
+    * Returns the action to be performend when passed an environment to it.
 
 ### Code Execution:
 > Exactly same as Krislet execution.
