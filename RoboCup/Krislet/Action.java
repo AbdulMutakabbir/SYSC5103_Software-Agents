@@ -82,7 +82,7 @@ class ActionDash extends Action {
             dash_power = dash_multiplier * ball_info.m_distance;
         }
         else{
-            dash_power = dash_multiplier * 20.0;
+            dash_power = dash_multiplier * dash_multiplier;
         }
         krislet.dash(dash_power);
         System.out.println("Performed Action: " + this.name);
