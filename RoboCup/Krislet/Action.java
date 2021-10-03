@@ -2,7 +2,6 @@
 //	Author:		    Mutakabbir
 //	Date:			30/09/2021
 
-
 /*
 *   This is the abstract class defined for actions 
 *   it holds the action name and description and provides the abstract method for performing the action
@@ -40,10 +39,9 @@ public abstract class Action {
     }
 }
 
-
 /*
-*   This class holds the action instructions for turning the player
-*/
+ * This class holds the action instructions for turning the player
+ */
 class ActionTurn extends Action {
 
     private static String action_name = "Turn";
@@ -67,8 +65,8 @@ class ActionTurn extends Action {
 }
 
 /*
-*   This class holds the action instructions for moving towards the ball
-*/
+ * This class holds the action instructions for moving towards the ball
+ */
 class ActionMoveTowardsBall extends Action {
 
     private static String action_name = "MoveTowardsBall";
@@ -82,20 +80,21 @@ class ActionMoveTowardsBall extends Action {
     @Override
     public void do_action(SendCommand krislet, ObjectInfo parameter, Memory memory, char side) {
         double dash_power = dash_multiplier * parameter.m_distance;
-        if (parameter.m_direction != 0) {
-            krislet.turn(parameter.m_direction);
-        } else {
-            krislet.dash(dash_power);
+        if (parameter != null) {
+            if (parameter.m_direction != 0) {
+                krislet.turn(parameter.m_direction);
+            } else {
+                krislet.dash(dash_power);
+            }
         }
         System.out.println("Performed Action: " + this.name);
     }
 
 }
 
-
 /*
-*   This class contains information about kicking the ball
-*/
+ * This class contains information about kicking the ball
+ */
 class ActionKick extends Action {
 
     private static String action_name = "KickBall";
@@ -109,7 +108,13 @@ class ActionKick extends Action {
 
     @Override
     public void do_action(SendCommand krislet, ObjectInfo parameter, Memory memory, char side) {
-        double kick_direction = parameter.m_direction;
+        double kick_direction;
+        if (parameter != null) {
+            kick_direction = parameter.m_direction;
+        } 
+        else{
+            kick_direction = 0.0;
+        }
 
         krislet.kick(kick_power, kick_direction);
         System.out.println("Performed Action: " + this.name);
@@ -117,9 +122,10 @@ class ActionKick extends Action {
 
 }
 
-/* 
-* This class hold the instructions as to what needs to be done when the action is not known
-*/
+/*
+ * This class hold the instructions as to what needs to be done when the action
+ * is not known
+ */
 class ActionUnknown extends Action {
 
     private static String action_name = "Unkown";
