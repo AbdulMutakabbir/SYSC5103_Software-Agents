@@ -6,6 +6,7 @@ Come up with a reactive soccer-playing agent for RoboCup, as per the definition 
 
 ### Read Config File:
 > File is located in Krislet Folder. File Name: ReactiveAgent_Mapping.csv
+
 Each line contains a pair of envirenment and action seperated by a "," which represents a single maping [Eg: E1,Ac1]
 
 ### Edit Config File:
