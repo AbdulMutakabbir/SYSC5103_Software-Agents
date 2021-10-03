@@ -15,10 +15,10 @@ Create a mapping of "Environment , Action" in each Line to add the behaviour to 
 > Allowed environments: "Ball_Unknown", "Ball_Kickable" and "Ball_Far"
 
 ### Agent Function Definition:
+![Agent Mapping](https://raw.githubusercontent.com/AbdulMutakabbir/SYSC5103_Software-Agents/assignment_1_q1/assets/Software_Agents%20-%20Reactive_Agents.svg)
 * The agent "Turns" when the "Ball is unknown".
 * The agent "Kicks the ball" when the "Ball is kickable".
 * The agent "Moves towards the ball" when the "Ball is far"
-![Agent Mapping](https://raw.githubusercontent.com/AbdulMutakabbir/SYSC5103_Software-Agents/assignment_1_q1/assets/Software_Agents%20-%20Reactive_Agents.svg)
 
 ### Code Description:
 * Abstract "Action" class structures the agents actions. This is extended by "ActionTurn", "ActionMoveTowardsBall", "ActionKick" classes which implement their own "do_action" method which performs the action for the agent.
