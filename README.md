@@ -9,12 +9,13 @@ Come up with a state-based soccer-playing agent. Ideally, the behaviour of the a
 > File Name: StateAgent_Table.csv
 
 The file has the following format
-* Line 1: Start State of the State Machine [Should contain only one State name. Eg: Q1]
-* Line 2: Acceptance States of the State Machine in CSV format [The states should be present in Line 3 of the file. Eg: Q2,Q3]
-* Line 3: Set of States in CSV format [Eg: Q1,Q1,Q3,Q4]
-* Line 4: Set of Alphabets in CSV format [Eg: a1,a2,a3]
-* Line 5 - EOF: Contains the transitions result (Ac,Q) in tabulated format. Action and State should be separated by a ",". Transitions should be separated by a ";". [Eg: Ac1,Q1; Ac2,Q2; Ac3,Q3; ...]
-> Line 5 to EOF contains a table format for the transitions where each line corresponds to the specific index of the State defined in Line 3 and columns (";" separated in each line) corresponds to the specific index of alphabet defined in Line 4
+* Line 1: "Start State" of the State Machine [Should contain only one State name. Eg: Q1]
+* Line 2: "Acceptance States" of the State Machine in CSV format [The states should be present in Line 3 of the file. Eg: Q2,Q3]
+* Line 3: Set of "States" in CSV format [Eg: Q1,Q1,Q3,Q4]
+* Line 4: Set of "Alphabets" in CSV format [Eg: a1,a2,a3]
+* Line 5 - EOF: Contains the "transition results" (Ac,Q) in tabulated format. Action and State should be separated by a ",". Transitions should be separated by a ";". [Eg: Ac1,Q1; Ac2,Q2; Ac3,Q3; ...]
+> Line 5 to EOF contains a table format for the transitions where each line corresponds to the specific index of the State defined in Line 3 and columns (";" separated in each line) corresponds to the specific index of alphabet defined in Line 4.
+> The agent takes the State (Row) and Environment (Col) to perform the action the curresponding cell.
 
 ### How to Edit State Machine Config File:
 Points to remember during editing the file:
@@ -54,7 +55,7 @@ Points to remember during editing the file:
 > * Ball is at a distance of 1 and the goal is Known
 
 ### Code Description:
-* Abstract "Action" class structures the agents actions. These are extended by "ActionTurn", "ActionDash", "ActionKick" classes which implement their own "do_action" method that performs the action by the agent.
+* Abstract "Action" class structures the agents actions. It is extended by "ActionTurn", "ActionDash", "ActionKick" classes which implement their own "do_action" method that performs the action for agent.
 
 * The "Environment" class stores the environment variables and returns the proper environment when passed the parameters to it.
 
