@@ -7,7 +7,7 @@ Come up with a reactive soccer-playing agent for RoboCup, as per the definition 
 ### Read Config File:
 > File is located in Krislet Folder. File Name: ReactiveAgent_Mapping.csv
 
-Each line contains a pair of envirenment and action seperated by a "," which represents a single maping [Eg: E1,Ac1]
+Each line contains a pair of environment and action separated by a "," which represents a single mapping [Eg: E1,Ac1]
 
 ### Edit Config File:
 Create a mapping of "Environment , Action" in each Line to add the behaviour to the agent.
@@ -18,18 +18,18 @@ Create a mapping of "Environment , Action" in each Line to add the behaviour to 
 ![Agent Mapping](https://raw.githubusercontent.com/AbdulMutakabbir/SYSC5103_Software-Agents/assignment_1_q1/assets/Software_Agents%20-%20Reactive_Agents.svg)
 * The agent "Turns" when the "Ball is unknown".
 * The agent "Kicks the ball" when the "Ball is kickable".
-* The agent "Moves towards the ball" when the "Ball is far"
+* The agent "Moves towards the ball" when the "ball is far"
 
 ### Code Description:
 * Abstract "Action" class structures the agents actions. It is extended by "ActionTurn", "ActionMoveTowardsBall", "ActionKick" classes which implement their own "do_action" method which performs the action for the agent.
-* The "Environment" class stores the environment variables and returns the proper environment when passed the parameters to it.
+* The "Environment" class stores the environment variables and returns the proper environment when the parameters are passed to it.
 * The "ReactiveMapper" class does the following
     * Reads the mapping from the config file.
     * Prints the mapping.
-    * Returns the action to be performend when passed an environment to it.
+    * Returns the action to be performend when an environment is passed to it.
 
 ### Code Execution:
 > Exactly same as Krislet execution.
 
 ### Expected Behaviour:
-Agent runs towards the ball when it knows where it and kicks the ball when the agent is close to it. I case the agent is not aware of the ball it will turn to find the ball.
+Agent runs towards the ball when it knows where it is and kicks the ball when the agent is close to it. In case the agent is not aware of the ball it will turn to find the ball.
