@@ -22,7 +22,7 @@ Points to remember during editing the file:
 * The 1st line contains only one State.
 * All the States present in Line 1, Line 2 and from Line 5 onwards should be present in Line 3.
 * All the Alphabets present from Line 5 onwards should be present in Line 4.
-* Number of Lines from Line 5 onwards to the EOF should be equal to the number of state present in Line 3 and the number of transitions (";" separated) in each line should be equal to the number of alphabets defined in Line 4
+* Number of Lines from Line 5 onwards to the EOF should be equal to the number of states present in Line 3 and the number of transitions (";" separated) in each line should be equal to the number of alphabets defined in Line 4
 > Edit actions and States from Line 5 to EOF based on the above rules.
 
 ### State Machine Diagram:
@@ -54,9 +54,9 @@ Points to remember during editing the file:
 > * Ball is at a distance of 1 and the goal is Known
 
 ### Code Description:
-* Abstract "Action" class structures the agents actions. These are extended by "ActionTurn", "ActionDash", "ActionKick" classes which implement their own "do_action" method that performs the action by the agent.
+* Abstract "Action" class structures the agent's actions. These are extended by "ActionTurn", "ActionDash", "ActionKick" classes which implement their own "do_action" method that performs the action by the agent.
 
-* The "Environment" class stores the environment variables and returns the proper environment when passed the parameters to it.
+* The "Environment" class stores the environment variables and returns the proper environment when the parameters are passed to it.
 
 * The "StateMachine" Class does the following tasks:
     * reads the config file for state machine.
@@ -71,7 +71,7 @@ Points to remember during editing the file:
 
 ### Expected Behaviour:
 * Agent will turn to find the ball
-* Once the agent finds the ball it will move towards it and allign itself with the goal.
+* Once the agent finds the ball it will move towards it and align itself with the goal.
 * If the agent comes near the ball it will try to kick it.
 
 > Note: Agent may sometimes not align itself properly with the goal in those situations the agents may end up kicking the ball back and forth without it ever reaching the goal.
