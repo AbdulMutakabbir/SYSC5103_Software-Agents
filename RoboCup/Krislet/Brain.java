@@ -43,7 +43,6 @@ class Brain extends Thread implements SensorInput {
 
 		STRIPActionPerformer performer = new STRIPActionPerformer(ball, goal, plan);
 
-
 		while (!m_timeOver) {
 			ball = m_memory.getObject("ball");
 		
@@ -51,9 +50,10 @@ class Brain extends Thread implements SensorInput {
 				goal = m_memory.getObject("goal r");
 			else
 				goal = m_memory.getObject("goal l");
-			
-			performer.nextAction(ball, goal);
+		
+			Actions ac = performer.nextAction(ball, goal);
 
+			ac.do_action(m_krislet);
 
 			// sleep one step to ensure that we will not send
 			// two commands in one cycle.

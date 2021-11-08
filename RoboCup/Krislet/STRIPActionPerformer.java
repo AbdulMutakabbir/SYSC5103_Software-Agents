@@ -56,6 +56,9 @@ public class STRIPActionPerformer {
                 if (agentRoation == 90) {
                     agentRoation = -90.0F;
                     return new ActionTurn(180);
+                } else {
+                    agentRoation = 0.0F;
+                    return new ActionUnknown();
                 }
             }
             if (agentRoation == -90.0F) {
@@ -69,40 +72,49 @@ public class STRIPActionPerformer {
         }
 
         if (currentOperator.getOperatorName() == OperatorAlignWithBall.name) {
-            boolean ballThetaPositive = ball.m_direction >= 0;
-            boolean goalThetaPositive = goal.m_direction >= 0;
 
-            double ballGolaTheta;
-            if ((ballThetaPositive && goalThetaPositive) || (!ballThetaPositive && !goalThetaPositive)) {
-                ballGolaTheta = Math.max(Math.abs(ball.m_direction), Math.abs(goal.m_direction))
-                        - Math.min(Math.abs(ball.m_direction), Math.abs(goal.m_direction));
-            } else {
-                ballGolaTheta = Math.abs(ball.m_direction) + Math.abs(goal.m_direction);
+            if (ball != null && goal != null) {
+                boolean ballThetaPositive = ball.m_direction >= 0;
+                boolean goalThetaPositive = goal.m_direction >= 0;
+
+                double ballGolaTheta;
+                if ((ballThetaPositive && goalThetaPositive) || (!ballThetaPositive && !goalThetaPositive)) {
+                    ballGolaTheta = Math.max(Math.abs(ball.m_direction), Math.abs(goal.m_direction))
+                            - Math.min(Math.abs(ball.m_direction), Math.abs(goal.m_direction));
+                } else {
+                    ballGolaTheta = Math.abs(ball.m_direction) + Math.abs(goal.m_direction);
+                }
+
+                double xGoalDistance = Math.abs(ball.m_distance) * Math.cos(ballGolaTheta);
+                double yGoalDistance = Math.abs(goal.m_distance) - xGoalDistance;
+                double hGoalDistance = Math.abs(goal.m_distance) * Math.sin(ballGolaTheta);
+
+                double agentBallTheta = Math.atan(hGoalDistance / yGoalDistance);
+
+                double agentGoalTheta = 180 - (agentBallTheta + ballGolaTheta);
+
+                this.agentRotationOnBall = agentGoalTheta;
+
+                currentStep++;
+
+                return new ActionTurn(ball.m_direction);
             }
-
-            double xGoalDistance = Math.abs(ball.m_distance) * Math.cos(ballGolaTheta);
-            double yGoalDistance = Math.abs(goal.m_distance) - xGoalDistance;
-            double hGoalDistance = Math.abs(goal.m_distance) * Math.sin(ballGolaTheta);
-
-            double agentBallTheta = Math.atan(hGoalDistance / yGoalDistance);
-
-            double agentGoalTheta = 180 - (agentBallTheta + ballGolaTheta);
-
-            this.agentRotationOnBall = agentGoalTheta;
-
-            currentStep++;
-
-            return new ActionTurn(ball.m_direction);
+            // currentStep--;
+            return new ActionUnknown();
 
         }
 
         if (currentOperator.getOperatorName() == OperatorMoveTowardsBall.name) {
-            if (Math.ceil(ball.m_distance) > 1) {
-                return new ActionDash(100);
-            } else {
-                currentStep++;
-                return new ActionTurn(agentRotationOnBall);
+            if (ball != null) {
+                if (Math.ceil(ball.m_distance) > 1) {
+                    return new ActionDash(100);
+                } else {
+                    currentStep++;
+                    return new ActionTurn(agentRotationOnBall);
+                }
             }
+            // currentStep--;
+            return new ActionUnknown();
         }
 
         if (currentOperator.getOperatorName() == OperatorKickBall.name) {
