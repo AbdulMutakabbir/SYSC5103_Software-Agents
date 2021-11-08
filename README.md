@@ -3,7 +3,7 @@ This repository contains assignments for the Course SYSC5103 -  Software Agents
 
 
 ### Background
-The main branch contains only the base Krizlet Code
+The main branch contains only the base Krizlet Code.
 Code base for each assignment can be found on there sepecific branches as follows:
  * [Assignment 1 - Question 1](https://github.com/AbdulMutakabbir/SYSC5103_Software-Agents/tree/assignment_1_q1)
  * [Assignment 1 - Question 2](https://github.com/AbdulMutakabbir/SYSC5103_Software-Agents/tree/assignment_1_q2)
