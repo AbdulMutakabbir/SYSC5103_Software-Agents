@@ -9,6 +9,7 @@
 //    Date:             March 4, 2008
 
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.regex.*;
 
 class Brain extends Thread implements SensorInput {
@@ -27,55 +28,31 @@ class Brain extends Thread implements SensorInput {
 		start();
 	}
 
-	// ---------------------------------------------------------------------------
-	// This is main brain function used to make decision
-	// In each cycle we decide which command to issue based on
-	// current situation. the rules are:
-	//
-	// 1. If you don't know where is ball then turn right and wait for new info
-	//
-	// 2. If ball is too far to kick it then
-	// 2.1. If we are directed towards the ball then go to the ball
-	// 2.2. else turn to the ball
-	//
-	// 3. If we dont know where is opponent goal then turn wait
-	// and wait for new info
-	//
-	// 4. Kick ball
-	//
-	// To ensure that we don't send commands to often after each cycle
-	// we waits one simulator steps. (This of course should be done better)
-
-	// *************** Improvements ******************
-	// Allways know where the goal is.
-	// Move to a place on my side on a kick_off
-	// ************************************************
-
 	public void run() {
-		ObjectInfo ball, goal;
+		ObjectInfo ball = null;
+		ObjectInfo goal = null;
 
 		// first put it somewhere on my side
 		if (Pattern.matches("^before_kick_off.*", m_playMode))
 			m_krislet.move(-Math.random() * 52.5, 34 - Math.random() * 68.0);
 
-		ball = m_memory.getObject("ball");
 		
-		if(m_side == 'l')
-			goal = m_memory.getObject("goal r");
-		else
-			goal = m_memory.getObject("goal l");
-		
-		STRIP strip = new STRIP(ball, goal);
-		System.out.println(strip.model.toString());
-        System.out.println(strip.goals.toString());
-        System.out.println(strip.operators.toString());
-		strip.plan();
+        STRIP strip = new STRIP(null, null);
+		ArrayList<STRIPOperator> plan = strip.plan();
+        System.out.println(plan.toString());
 
-		System.out.println(strip.steps.toString());
+		STRIPActionPerformer performer = new STRIPActionPerformer(ball, goal, plan);
+
 
 		while (!m_timeOver) {
+			ball = m_memory.getObject("ball");
+		
+			if(m_side == 'l')
+				goal = m_memory.getObject("goal r");
+			else
+				goal = m_memory.getObject("goal l");
 			
-
+			performer.nextAction(ball, goal);
 
 
 			// sleep one step to ensure that we will not send

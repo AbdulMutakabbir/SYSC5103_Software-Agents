@@ -7,21 +7,16 @@ public class STRIP {
     public HashMap<String, RelationalSentences> model;
     public HashMap<String, RelationalSentences> goals;
     public HashMap<String, STRIPOperator> operators;
-    public ArrayList<STRIPOperator> steps;
 
-    public static void main(String args[]) {
-        STRIP strip = new STRIP(null, null);
-        strip.plan();
-
-        System.out.println(strip.steps.toString());
-    }
+    // public static void main(String args[]) {
+    //     STRIP strip = new STRIP(null, null);
+    //     System.out.println(strip.plan().toString());
+    // }
 
     public STRIP(ObjectInfo ball, ObjectInfo goal) {
         this.goals = this.initGoals();
         this.operators = this.initOperators();
         this.model = this.initModel(ball, goal);
-        System.out.println(model);
-        this.steps = new ArrayList<STRIPOperator>();
     }
 
     public HashMap<String, RelationalSentences> initGoals() {
@@ -73,8 +68,7 @@ public class STRIP {
     public HashMap<String, STRIPOperator> initOperators() {
         HashMap<String, STRIPOperator> operators = new HashMap<String, STRIPOperator>();
 
-        STRIPOperator s = new OperatorLookForAll();
-        operators.put(OperatorLookForAll.name, s);
+        operators.put(OperatorLookForAll.name, new OperatorLookForAll());
         operators.put(OperatorLookForBall.name, new OperatorLookForBall());
         operators.put(OperatorLookForGoal.name, new OperatorLookForGoal());
         operators.put(OperatorAlignWithBall.name, new OperatorAlignWithBall());
@@ -84,54 +78,74 @@ public class STRIP {
         return operators;
     }
 
-    public void plan() {
+    public ArrayList<STRIPOperator> plan() {
+        
+        ArrayList<STRIPOperator> steps = new ArrayList<STRIPOperator>();
 
         HashMap<String, RelationalSentences> completeGoals, incompleteGoals;
         completeGoals = new HashMap<String, RelationalSentences>();
         incompleteGoals = new HashMap<String, RelationalSentences>();
 
-        do {
-            incompleteGoals.clear();
-            completeGoals.clear();
-
-            Iterator<String> goalsIterator = this.goals.keySet().iterator();
-            while (goalsIterator.hasNext()) {
-                String goal = goalsIterator.next();
-                if (this.model.containsKey(goal))
-                    completeGoals.put(goal, this.goals.get(goal));
-                else
-                    incompleteGoals.put(goal, this.goals.get(goal));
+        Iterator<String> goalIterator = this.goals.keySet().iterator();
+        while(goalIterator.hasNext()){
+            String goal = goalIterator.next();
+            if(this.model.containsKey(goal)){
+                completeGoals.put(goal, this.goals.get(goal));
             }
+            else{
+                incompleteGoals.put(goal, this.goals.get(goal));
+            }
+        }
 
-            if (incompleteGoals.size() == 0)
-                break;
+        while(incompleteGoals.size() != 0){
+            ArrayList<STRIPOperator> possiblOperator = new ArrayList<STRIPOperator>();
 
-            HashMap<Double, String> ranking = new HashMap<Double, String>();
             Iterator<String> operatorIterator = this.operators.keySet().iterator();
-            while (operatorIterator.hasNext()) {
+            while(operatorIterator.hasNext()){
                 String operator = operatorIterator.next();
-                double score = this.operators.get(operator).getScore(this.model, incompleteGoals, completeGoals);
-                ranking.put(score, operator);
+                Iterator<String> addIterator = this.operators.get(operator).getAddList().keySet().iterator();
+                while(addIterator.hasNext()){
+                    String relation = addIterator.next();
+                    if (incompleteGoals.containsKey(relation)){
+                        possiblOperator.add(this.operators.get(operator));
+                        break;
+                    }
+                }
             }
-            System.out.println("\n" + incompleteGoals.values().toString());
-            System.out.println(completeGoals.values().toString());
 
-            double maxScore = Collections.max(ranking.keySet());
+            STRIPOperator operator = null;
+            if(possiblOperator.size() > 0){
+                operator = possiblOperator.get(possiblOperator.size()-1);
+            }
+            else{
+                Collections.reverse(steps);
+                return steps;
+            }
 
-            STRIPOperator operator = this.operators.get(ranking.get(maxScore));
-            this.steps.add(operator);
+            steps.add(operator);
 
-            operator.updateGoals(this.goals);
-            operator.updateModel(this.model);
+            Iterator<String> incompleteGoalsIterator = incompleteGoals.keySet().iterator();
+            while (incompleteGoalsIterator.hasNext()) {
+                String condition = incompleteGoalsIterator.next();
+                if (operator.getAddList().containsKey(condition)){
+                    completeGoals.put(condition, operator.getAddList().get(condition));
+                }
+            }
 
-            System.out.println(operator.toString());
-            System.out.println(model.values().toString());
-            System.out.println(goals.values().toString());
+            incompleteGoals.keySet().removeAll(operator.getAddList().keySet());
 
-            
-             int x = 0;
+            Iterator<String> preconditionIterator = operator.getPrecondition().keySet().iterator();
+            while(preconditionIterator.hasNext()){
+                String condition = preconditionIterator.next();
+                if(!completeGoals.containsKey(condition)) {
+                    incompleteGoals.put(condition, operator.getPrecondition().get(condition));
+                }
+            } 
 
-        } while (incompleteGoals.size() > 0);
+        }
+
+        Collections.reverse(steps);
+        return steps;
     }
 
 }
