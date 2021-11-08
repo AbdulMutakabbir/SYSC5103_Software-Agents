@@ -52,40 +52,31 @@ class Brain extends Thread implements SensorInput {
 	// ************************************************
 
 	public void run() {
-		ObjectInfo object;
+		ObjectInfo ball, goal;
 
 		// first put it somewhere on my side
 		if (Pattern.matches("^before_kick_off.*", m_playMode))
 			m_krislet.move(-Math.random() * 52.5, 34 - Math.random() * 68.0);
 
-		while (!m_timeOver) {
-			object = m_memory.getObject("ball");
-			if (object == null) {
-				// If you don't know where is ball then find it
-				m_krislet.turn(40);
-				m_memory.waitForNewInfo();
-			} else if (object.m_distance > 1.0) {
-				// If ball is too far then
-				// turn to ball or
-				// if we have correct direction then go to ball
-				if (object.m_direction != 0)
-					m_krislet.turn(object.m_direction);
-				else
-					m_krislet.dash(10 * object.m_distance);
-			} else {
-				// We know where is ball and we can kick it
-				// so look for goal
-				if (m_side == 'l')
-					object = m_memory.getObject("goal r");
-				else
-					object = m_memory.getObject("goal l");
+		ball = m_memory.getObject("ball");
+		
+		if(m_side == 'l')
+			goal = m_memory.getObject("goal r");
+		else
+			goal = m_memory.getObject("goal l");
+		
+		STRIP strip = new STRIP(ball, goal);
+		System.out.println(strip.model.toString());
+        System.out.println(strip.goals.toString());
+        System.out.println(strip.operators.toString());
+		strip.plan();
 
-				if (object == null) {
-					m_krislet.turn(40);
-					m_memory.waitForNewInfo();
-				} else
-					m_krislet.kick(100, object.m_direction);
-			}
+		System.out.println(strip.steps.toString());
+
+		while (!m_timeOver) {
+			
+
+
 
 			// sleep one step to ensure that we will not send
 			// two commands in one cycle.
