@@ -1,7 +1,6 @@
 # SYSC5103_Software-Agents
-SYSC5103 Contains coures assignment and Projects
+This repository contains assignments for the Course SYSC5103 -  Software Agents 
 
-Project has been initialized.
 
 ###Background
 The main branch contains only the base Krizlet Code
