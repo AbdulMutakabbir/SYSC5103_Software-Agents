@@ -20,7 +20,7 @@ The reasoning behind choosing planner was to have a step wise approach solve a d
 
 
 ### STRIP Operators Diagram:
-![STRIP Operators]()
+![STRIP Operators](https://github.com/AbdulMutakabbir/SYSC5103_Software-Agents/blob/assignment_2_q1/assets/operarators.png)
 
 > The first theree operators (LookForAll, LookForBall LookForGoal) are there for the agent to find the objects in the environment.
 
