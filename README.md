@@ -30,7 +30,7 @@ The reasoning behind choosing planner was to have a step wise approach solve a d
 
 > The final operator (KickBall) gets the agent to kick the ball.
 
-![Goal wff]()
+![Goal wff](https://github.com/AbdulMutakabbir/SYSC5103_Software-Agents/blob/assignment_2_q1/assets/goal.png)
 
 > The goal here for the agent is find a sequence of operations that will lead it to know where the goal is while the agent kicks the ball.
 
