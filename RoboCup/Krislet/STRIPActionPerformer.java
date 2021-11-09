@@ -32,6 +32,7 @@ public class STRIPActionPerformer {
     public Actions nextAction(ObjectInfo ball, ObjectInfo goal) {
 
         if (currentStep >= plan.size()) {
+            currentStep = 0 ;
             return new ActionUnknown();
         }
 
