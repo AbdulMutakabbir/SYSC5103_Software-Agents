@@ -204,14 +204,8 @@ class OperatorAlignWithBall extends STRIPOperator {
         this.getPrecondition().put(goalDistance.getHashCode(), goalDistance);
 
         this.getDeleteList().put(ballTheta.getHashCode(), ballTheta);
-        // this.getDeleteList().put(ballDistance.getHashCode(), ballDistance);
-        // this.getDeleteList().put(goalTheta.getHashCode(), goalTheta);
-        // this.getDeleteList().put(goalDistance.getHashCode(), goalDistance);
 
         this.getAddList().put(ballTheta0.getHashCode(), ballTheta0);
-        // this.getAddList().put(ballDistance.getHashCode(), ballDistance);
-        // this.getAddList().put(goalTheta.getHashCode(), goalTheta);
-        // this.getAddList().put(goalDistance.getHashCode(), goalDistance);
 
     }
 }
@@ -256,13 +250,13 @@ class OperatorKickBall extends STRIPOperator {
         RelationalSentences kickedBall = RelationalSentences.getRelationFromType("kicked");
         RelationalSentences unknownBall = RelationalSentences.getRelationFromType("unknownBall");
         RelationalSentences ballTheta0 = RelationalSentences.getRelationFromType("ballTheta0");
+        RelationalSentences ballDistance = RelationalSentences.getRelationFromType("ballDistance");
         RelationalSentences ballDistance1 = RelationalSentences.getRelationFromType("ballDistance1");
 
         this.getPrecondition().put(ballTheta0.getHashCode(), ballTheta0);
         this.getPrecondition().put(ballDistance1.getHashCode(), ballDistance1);
 
-        // this.getDeleteList().put(ballTheta0.getHashCode(), ballTheta0);
-        // this.getDeleteList().put(ballDistance1.getHashCode(), ballDistance1);
+        this.getDeleteList().put(ballDistance.getHashCode(), ballDistance);
 
         this.getAddList().put(kickedBall.getHashCode(), kickedBall);
         this.getAddList().put(unknownBall.getHashCode(), unknownBall);
