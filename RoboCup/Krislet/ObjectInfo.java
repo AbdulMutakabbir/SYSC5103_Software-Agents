@@ -1,4 +1,3 @@
-//
 //	File:			ObjectInfo.java
 //	Author:		Krzysztof Langner
 //	Date:			1997/04/28
