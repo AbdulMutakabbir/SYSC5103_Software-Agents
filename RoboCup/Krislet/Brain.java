@@ -9,6 +9,7 @@
 //    Date:             March 4, 2008
 
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.regex.*;
 
 class Brain extends Thread implements SensorInput {
@@ -27,65 +28,32 @@ class Brain extends Thread implements SensorInput {
 		start();
 	}
 
-	// ---------------------------------------------------------------------------
-	// This is main brain function used to make decision
-	// In each cycle we decide which command to issue based on
-	// current situation. the rules are:
-	//
-	// 1. If you don't know where is ball then turn right and wait for new info
-	//
-	// 2. If ball is too far to kick it then
-	// 2.1. If we are directed towards the ball then go to the ball
-	// 2.2. else turn to the ball
-	//
-	// 3. If we dont know where is opponent goal then turn wait
-	// and wait for new info
-	//
-	// 4. Kick ball
-	//
-	// To ensure that we don't send commands to often after each cycle
-	// we waits one simulator steps. (This of course should be done better)
-
-	// *************** Improvements ******************
-	// Allways know where the goal is.
-	// Move to a place on my side on a kick_off
-	// ************************************************
-
 	public void run() {
-		ObjectInfo object;
+		ObjectInfo ball = null;
+		ObjectInfo goal = null;
 
 		// first put it somewhere on my side
 		if (Pattern.matches("^before_kick_off.*", m_playMode))
 			m_krislet.move(-Math.random() * 52.5, 34 - Math.random() * 68.0);
 
-		while (!m_timeOver) {
-			object = m_memory.getObject("ball");
-			if (object == null) {
-				// If you don't know where is ball then find it
-				m_krislet.turn(40);
-				m_memory.waitForNewInfo();
-			} else if (object.m_distance > 1.0) {
-				// If ball is too far then
-				// turn to ball or
-				// if we have correct direction then go to ball
-				if (object.m_direction != 0)
-					m_krislet.turn(object.m_direction);
-				else
-					m_krislet.dash(10 * object.m_distance);
-			} else {
-				// We know where is ball and we can kick it
-				// so look for goal
-				if (m_side == 'l')
-					object = m_memory.getObject("goal r");
-				else
-					object = m_memory.getObject("goal l");
+		
+        STRIP strip = new STRIP(null, null);
+		ArrayList<STRIPOperator> plan = strip.plan();
+        System.out.println(plan.toString());
 
-				if (object == null) {
-					m_krislet.turn(40);
-					m_memory.waitForNewInfo();
-				} else
-					m_krislet.kick(100, object.m_direction);
-			}
+		STRIPActionPerformer performer = new STRIPActionPerformer(ball, goal, plan);
+
+
+		while (!m_timeOver) {
+			ball = m_memory.getObject("ball");
+		
+			if(m_side == 'l')
+				goal = m_memory.getObject("goal r");
+			else
+				goal = m_memory.getObject("goal l");
+			
+			performer.nextAction(ball, goal);
+
 
 			// sleep one step to ensure that we will not send
 			// two commands in one cycle.
