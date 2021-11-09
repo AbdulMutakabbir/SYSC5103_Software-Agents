@@ -4,9 +4,11 @@
 //	Date:			1997/04/28
 //
 //    Modified by:	Paul Marlow
-
 //    Modified by:      Edgar Acosta
 //    Date:             March 4, 2008
+
+// Modified by: Mutakabbir
+// Date: 11/9/2020
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ class Brain extends Thread implements SensorInput {
 		
         STRIP strip = new STRIP(null, null);
 		ArrayList<STRIPOperator> plan = strip.plan();
-        System.out.println(plan.toString());
+        System.out.println("plan: " + plan.toString());
 
 		STRIPActionPerformer performer = new STRIPActionPerformer(ball, goal, plan);
 

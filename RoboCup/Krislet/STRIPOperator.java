@@ -1,6 +1,16 @@
+//	File:			STRIP.java
+//	Author:		    Mutakabbir
+//	Date:			11/09/2020
+
 import java.util.HashMap;
 import java.util.Iterator;
 
+/*
+*   This is the abstract is class defined for operators 
+*   it holds the operator details and method
+*   
+*   @author  Mutakabbir
+*/
 public abstract class STRIPOperator {
 
     private String operatorName;
@@ -82,6 +92,11 @@ public abstract class STRIPOperator {
 
 }
 
+/*
+*   This class holds the operational details for "LookForAll"
+*   
+*   @author  Mutakabbir
+*/
 class OperatorLookForAll extends STRIPOperator {
 
     public static String name = "LookForAll";
@@ -111,6 +126,11 @@ class OperatorLookForAll extends STRIPOperator {
 
 }
 
+/*
+*   This class holds the operational details for "LookForBall"
+*   
+*   @author  Mutakabbir
+*/
 class OperatorLookForBall extends STRIPOperator {
 
     static String name = "LookForBall";
@@ -133,6 +153,11 @@ class OperatorLookForBall extends STRIPOperator {
 
 }
 
+/*
+*   This class holds the operational details for "LookForGosl"
+*   
+*   @author  Mutakabbir
+*/
 class OperatorLookForGoal extends STRIPOperator {
 
     static String name = "LookForGoal";
@@ -155,6 +180,11 @@ class OperatorLookForGoal extends STRIPOperator {
 
 }
 
+/*
+*   This class holds the operational details for "AlignWithBall"
+*   
+*   @author  Mutakabbir
+*/
 class OperatorAlignWithBall extends STRIPOperator {
 
     static String name = "AliginWithBall";
@@ -186,6 +216,11 @@ class OperatorAlignWithBall extends STRIPOperator {
     }
 }
 
+/*
+*   This class holds the operational details for "MoveTowardsBall"
+*   
+*   @author  Mutakabbir
+*/
 class OperatorMoveTowardsBall extends STRIPOperator {
 
     static String name = "MoveTowardsBall";
@@ -206,6 +241,11 @@ class OperatorMoveTowardsBall extends STRIPOperator {
     }
 }
 
+/*
+*   This class holds the operational details for "KickBall"
+*   
+*   @author  Mutakabbir
+*/
 class OperatorKickBall extends STRIPOperator {
 
     static String name = "KickBall";

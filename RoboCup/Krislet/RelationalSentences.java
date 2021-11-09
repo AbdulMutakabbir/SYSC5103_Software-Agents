@@ -1,5 +1,14 @@
+//	File:			STRIP.java
+//	Author:		    Mutakabbir
+//	Date:			11/09/2020
+
 import java.util.ArrayList;
 
+/*
+*   This class holds the relation data 
+*   
+*   @author  Mutakabbir
+*/
 public class RelationalSentences {
 
     @Override

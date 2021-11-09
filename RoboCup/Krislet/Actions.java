@@ -5,6 +5,8 @@
 /*
 *   This is the abstract class defined for actions 
 *   it holds the action name and description and provides the abstract method for performing the action
+*   
+*   @author  Mutakabbir
 */
 public abstract class Actions {
     private String name;
@@ -12,6 +14,7 @@ public abstract class Actions {
 
     public abstract void do_action(SendCommand krislet);
 
+    // getters and setters for the class
     public Actions(String name, String description) {
         this.name = name;
         this.decription = description;
@@ -41,6 +44,8 @@ public abstract class Actions {
 
 /*
  * This class holds the action instructions for turning the player
+ * 
+ * @author  Mutakabbir
  */
 class ActionTurn extends Actions {
 
@@ -76,6 +81,8 @@ class ActionTurn extends Actions {
 
 /*
  * This class holds the action instructions for moving towards the ball
+ * 
+ * @author  Mutakabbir
  */
 class ActionDash extends Actions {
 
@@ -112,6 +119,8 @@ class ActionDash extends Actions {
 
 /*
  * This class contains information about kicking the ball
+ * 
+ * @author  Mutakabbir
  */
 class ActionKick extends Actions {
 
@@ -159,6 +168,8 @@ class ActionKick extends Actions {
 /*
  * This class hold the instructions as to what needs to be done when the action
  * is not known
+ * 
+ * @author  Mutakabbir
  */
 class ActionUnknown extends Actions {
 

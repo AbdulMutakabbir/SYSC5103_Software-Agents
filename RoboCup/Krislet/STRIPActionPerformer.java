@@ -1,5 +1,14 @@
+//	File:			STRIP.java
+//	Author:		    Mutakabbir
+//	Date:			11/09/2020
+
 import java.util.ArrayList;
 
+/*
+*   This helper class is used to perform actions when the environment state is known 
+*   
+*   @author  Mutakabbir
+*/
 public class STRIPActionPerformer {
     ArrayList<STRIPOperator> plan;
     Float lastSeenBallTheta;
@@ -31,13 +40,17 @@ public class STRIPActionPerformer {
 
     public Actions nextAction(ObjectInfo ball, ObjectInfo goal) {
 
+        // loop back to initial point if the plan execution is complete
         if (currentStep >= plan.size()) {
             currentStep = 0 ;
             return new ActionUnknown();
         }
 
+        // get current operation to perform
         STRIPOperator currentOperator = plan.get(currentStep);
 
+        // if the operation is look for
+        // look left and right and locate the ball and goal
         if (currentOperator.getOperatorName() == OperatorLookForAll.name
                 || currentOperator.getOperatorName() == OperatorLookForBall.name
                 || currentOperator.getOperatorName() == OperatorLookForGoal.name) {
@@ -72,6 +85,9 @@ public class STRIPActionPerformer {
             }
         }
 
+        // if the operation is Align with ball
+        // turn towards the ball and 
+        // calculate the angle that the agent needs to turn after it reaches the ball
         if (currentOperator.getOperatorName() == OperatorAlignWithBall.name) {
 
             if (ball != null && goal != null) {
@@ -105,6 +121,8 @@ public class STRIPActionPerformer {
 
         }
 
+        // if operator is moveTowardsBall
+        // dash till the agent reaches the ball
         if (currentOperator.getOperatorName() == OperatorMoveTowardsBall.name) {
             if (ball != null) {
                 if (Math.ceil(ball.m_distance) > 1) {
@@ -118,6 +136,7 @@ public class STRIPActionPerformer {
             return new ActionUnknown();
         }
 
+        // if operator is kick the kick the ball
         if (currentOperator.getOperatorName() == OperatorKickBall.name) {
             currentStep++;
             return new ActionKick(100, 0);
