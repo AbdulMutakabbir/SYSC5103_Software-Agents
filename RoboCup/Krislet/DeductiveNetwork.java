@@ -1,7 +1,18 @@
+//	File:			DeductiveNetwork.java
+//	Author:		    Mutakabbir
+//	Date:			12/11/2021
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+
+
+/**
+ * DeductiveNetwork abstract class holds the logic of DeductiveNetwork 
+ *
+ * @author  Mutakabbir
+ */
 public abstract class DeductiveNetwork {
 
     private HashMap<String, ChanceNode> graph;
@@ -9,6 +20,7 @@ public abstract class DeductiveNetwork {
     private ArrayList<CurrentStateNode> currentStateNodes;
     private ArrayList<OutcomeStateNode> outcomeStateNodes;
 
+    //getter and setters
     protected HashMap<String, ChanceNode> getGraph() {
         return graph;
     }
@@ -50,6 +62,7 @@ public abstract class DeductiveNetwork {
         }
     }
 
+    // constructors
     public DeductiveNetwork() {
         this.graph = null;
         this.decisionNodes = null;
@@ -65,6 +78,13 @@ public abstract class DeductiveNetwork {
         this.outcomeStateNodes = outcomeStateNodes;
     }
 
+    /**
+     * returns the expected utility for diffrent decision node types  
+     *
+     * @param  decisionNodesChoice   
+     * @param  currentStateChoices   
+     * @return expected utility for that decision node
+     */
     protected Double getExpectedUtilityForDecisionNodesValue(HashMap<String, String> decisionNodesChoice,
             HashMap<String, String> curentStateChoices) {
         Double expectedUtility = 0.0;
@@ -81,8 +101,14 @@ public abstract class DeductiveNetwork {
     }
 }
 
+/**
+ * RoboCupDeductiveNetwork class executes logic of DeductiveNetwork for robocup 
+ *
+ * @author  Mutakabbir
+ */
 class RoboCupDeductiveNetwork extends DeductiveNetwork {
 
+    // constructor 
     public RoboCupDeductiveNetwork() {
         ArrayList<DecisionNode> roboCupDecisionNodes = new ArrayList<DecisionNode>();
         roboCupDecisionNodes.add(new ActionDecisionNode());
@@ -115,6 +141,7 @@ class RoboCupDeductiveNetwork extends DeductiveNetwork {
         this.initOutcomeStateNodes(outcomeStateNodes);
     }
 
+    // main function to check introduction of evidence
     public static void main(String args[]) {
         Double Eu;
 
@@ -164,9 +191,15 @@ class RoboCupDeductiveNetwork extends DeductiveNetwork {
 
 }
 
+/**
+ * Node class holds the abstract logic of nodes
+ *
+ * @author  Mutakabbir
+ */
 class Node {
     private ArrayList<String> nodeTypes;
 
+    //getter and setters
     public ArrayList<String> getNodeTypes() {
         return nodeTypes;
     }
@@ -185,16 +218,25 @@ class Node {
         this.nodeTypes = nodeTypes;
     }
 
+    //to string override
     @Override
     public String toString() {
         return this.getClass().getName();
     }
 }
 
+/**
+ * ChanceNode holds the abstract logic for this type of nodes
+ *
+ * @author  Mutakabbir
+ */
 abstract class ChanceNode extends Node {
 
     private ArrayList<ArrayList<Double>> conditionalProbablityDistribution;
 
+    protected abstract Boolean validate();
+
+    // getters and setters
     public ArrayList<ArrayList<Double>> getConditionalProbablityDistribution() {
         return conditionalProbablityDistribution;
     }
@@ -205,6 +247,7 @@ abstract class ChanceNode extends Node {
         }
     }
 
+    //constructor
     public ChanceNode() {
         super();
         this.conditionalProbablityDistribution = null;
@@ -214,13 +257,16 @@ abstract class ChanceNode extends Node {
         super(nodeTypes);
         this.conditionalProbablityDistribution = conditionalProbablityDistribution;
     }
-
-    protected abstract Boolean validate();
-
 }
 
+/**
+ * CurrentStateNode holds the abstract logic for this type of nodes
+ *
+ * @author  Mutakabbir
+ */
 class CurrentStateNode extends ChanceNode {
 
+    // constructors
     public CurrentStateNode() {
         super();
     }
@@ -230,6 +276,12 @@ class CurrentStateNode extends ChanceNode {
         super(nodeTypes, conditionalProbablityDistribution);
     }
 
+    /**
+     * return joint probablity  
+     *
+     * @param  nodetype   
+     * @return probablity
+     */
     public Double getJointProbablity(String nodeType) {
         int rowIndex = 0;
         int colIndex = this.getNodeTypes().indexOf(nodeType);
@@ -242,6 +294,7 @@ class CurrentStateNode extends ChanceNode {
 
     }
 
+    // validator implementation
     @Override
     protected Boolean validate() {
         if (this.getConditionalProbablityDistribution().size() == 1
@@ -254,11 +307,17 @@ class CurrentStateNode extends ChanceNode {
 
 }
 
+/**
+ * SeeBallState executes the functionlaity of this type of State node
+ *
+ * @author  Mutakabbir
+ */
 class SeeBallState extends CurrentStateNode {
 
     public static String TYPE_TRUE = "True";
     public static String TYPE_FALSE = "False";
 
+    // constructor
     public SeeBallState() {
         super();
 
@@ -277,11 +336,17 @@ class SeeBallState extends CurrentStateNode {
 
 }
 
+/**
+ * SeeGoalState executes the functionlaity of this type of State node
+ *
+ * @author  Mutakabbir
+ */
 class SeeGoalState extends CurrentStateNode {
 
     public static String TYPE_TRUE = "True";
     public static String TYPE_FALSE = "False";
 
+    // constructor
     public SeeGoalState() {
         super();
 
@@ -299,6 +364,11 @@ class SeeGoalState extends CurrentStateNode {
     }
 }
 
+/**
+ * OutcomeStateNode holds logic for this type of nodes
+ *
+ * @author  Mutakabbir
+ */
 class OutcomeStateNode extends ChanceNode {
 
     private Double weight;
@@ -306,6 +376,7 @@ class OutcomeStateNode extends ChanceNode {
     private ArrayList<DecisionNode> decisionNodes;
     private ArrayList<CurrentStateNode> parentNodes;
 
+    //getters and setters
     public Double getWeight() {
         return weight;
     }
@@ -346,6 +417,7 @@ class OutcomeStateNode extends ChanceNode {
         }
     }
 
+    //constructors
     public OutcomeStateNode() {
         super();
         this.weight = null;
@@ -364,6 +436,12 @@ class OutcomeStateNode extends ChanceNode {
         this.utilityFactor = utilityFactor;
     }
 
+    /**
+     * returns parrent choice array list from mapping  
+     *
+     * @param  parentMapping 
+     * @return parentChioceList
+     */    
     private ArrayList<String> getParentNodesChoiceArray(HashMap<String, String> parentNodeChoices) {
         ArrayList<String> parentChoiceList = new ArrayList<>();
 
@@ -375,6 +453,12 @@ class OutcomeStateNode extends ChanceNode {
         return parentChoiceList;
     }
 
+    /**
+     *  returns decision choice array list from mapping 
+     *
+     * @param  decisionMapping
+     * @return DecisionChoiceList
+     */
     private ArrayList<String> getDecisionNodesChoiceArray(HashMap<String, String> decisionNodeChoices) {
         ArrayList<String> decisionChoiceList = new ArrayList<>();
 
@@ -386,6 +470,13 @@ class OutcomeStateNode extends ChanceNode {
         return decisionChoiceList;
     }
 
+    /**
+     *  returns utility 
+     *
+     * @param  decisionChoiceMapping
+     * @param  parentChoiceMapping
+     * @return utility
+     */
     public Double getUtility(HashMap<String, String> decisionNodesChoice, HashMap<String, String> parentNodesChoice) {
         Double utility = 0.0;
 
@@ -424,6 +515,14 @@ class OutcomeStateNode extends ChanceNode {
         return utility;
     }
 
+    /**
+     *  returns probablity 
+     *
+     * @param  nodeType
+     * @param  decisionChoiceMapping
+     * @param  parentChoiceMapping
+     * @return probablity
+     */
     public Double getJointProbablityOfNode(String chanceNodeType, ArrayList<String> decisionNodeType,
             ArrayList<String> parentTypes) {
 
@@ -460,6 +559,7 @@ class OutcomeStateNode extends ChanceNode {
         }
     }
 
+    // validator implementation
     @Override
     protected Boolean validate() {
         if (this.getConditionalProbablityDistribution().size() > 1
@@ -471,11 +571,17 @@ class OutcomeStateNode extends ChanceNode {
     }
 }
 
+/**
+ * WillSeeBallNode executes the functionlaity of this type of Outcome node
+ *
+ * @author  Mutakabbir
+ */
 class WillSeeBallNode extends OutcomeStateNode {
 
     public static String TYPE_TRUE = "True";
     public static String TYPE_FALSE = "False";
 
+    //constructor
     public WillSeeBallNode() {
         super();
 
@@ -528,11 +634,17 @@ class WillSeeBallNode extends OutcomeStateNode {
     }
 }
 
+/**
+ * WillSeeGoalNode executes the functionlaity of this type of Outcome node
+ *
+ * @author  Mutakabbir
+ */
 class WillSeeGoalNode extends OutcomeStateNode {
 
     public static String TYPE_TRUE = "True";
     public static String TYPE_FALSE = "False";
 
+    //constructor
     public WillSeeGoalNode() {
         super();
 
@@ -585,12 +697,18 @@ class WillSeeGoalNode extends OutcomeStateNode {
     }
 }
 
+/**
+ * BallDistanceNode executes the functionlaity of this type of Outcome node
+ *
+ * @author  Mutakabbir
+ */
 class BallDistanceNode extends OutcomeStateNode {
 
     public static String TYPE_FAR = "Far";
     public static String TYPE_NEAR = "Near";
     public static String TYPE_UNKOWN = "Unknown";
 
+    // constructor
     public BallDistanceNode() {
         super();
 
@@ -651,8 +769,14 @@ class BallDistanceNode extends OutcomeStateNode {
     }
 }
 
+/**
+ * DecisionNode holds logic for this type of nodes
+ *
+ * @author  Mutakabbir
+ */
 abstract class DecisionNode extends Node {
 
+    //constructors
     public DecisionNode() {
         super();
     }
@@ -663,12 +787,18 @@ abstract class DecisionNode extends Node {
 
 }
 
+/**
+ * ActionDecisionNode executes the functionlaity of this type of Decision node
+ *
+ * @author  Mutakabbir
+ */
 class ActionDecisionNode extends DecisionNode {
 
     public static String TYPE_TURN = "Turn";
     public static String TYPE_DASH = "Dash";
     public static String TYPE_KICK = "Kick";
 
+    //constructors
     public ActionDecisionNode() {
         super();
 

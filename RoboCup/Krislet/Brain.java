@@ -1,4 +1,3 @@
-//
 //	File:			Brain.java
 //	Author:		Krzysztof Langner
 //	Date:			1997/04/28
@@ -7,6 +6,9 @@
 
 //    Modified by:      Edgar Acosta
 //    Date:             March 4, 2008
+
+//    Modified by:      Mutakabbir
+//    Date:             12/11/2021
 
 import java.lang.Math;
 import java.util.HashMap;
