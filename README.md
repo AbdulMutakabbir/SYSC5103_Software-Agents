@@ -49,7 +49,7 @@ Utility Node:
 ![Weight Function](https://github.com/AbdulMutakabbir/SYSC5103_Software-Agents/blob/assignment_2_q2/assets/Weight%20Function.png)
 > above figure shows how weights are obtained.
 
-!(Utility Function)[https://github.com/AbdulMutakabbir/SYSC5103_Software-Agents/blob/assignment_2_q2/assets/Utility%20Function.png]
+![Utility Function](https://github.com/AbdulMutakabbir/SYSC5103_Software-Agents/blob/assignment_2_q2/assets/Utility%20Function.png)
 > above figure shows how utilities are obtained.
 
 
