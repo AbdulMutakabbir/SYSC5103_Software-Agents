@@ -18,9 +18,9 @@ Decision Nodes:
 Current State Node:
 > There are 2 Current State Nodes named
 > * SeeBall (SB)
->   > SeeBall takes two vales {T, F}
+>   > SeeBall takes two values {T, F}
 > * SeeGoal (SG)
->   > SeeGoal takes two vales {T, F}
+>   > SeeGoal takes two values {T, F}
 > 
 
 Outcome Nodes:
