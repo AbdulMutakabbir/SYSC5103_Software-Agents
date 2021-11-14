@@ -17,4 +17,4 @@ Follow the following steps to execute the basic Krizlet code.
  2. Run SYSC5103_Software-Agents/RoboCup/rcssmonitor-14.1.0-win/rcssmonitor.exe
  3. Run SYSC5103_Software-Agents/RoboCup/Krislet/TeamStart.bat
  4. Let the players load in the monitor window
- 5. CLick on "Kickoff"
+ 5. Click on "Refree" Select "Kickoff"
